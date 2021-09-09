@@ -11,6 +11,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	SetMainWindowText("LT Timer");
 	SetWindowSize(320, 96);
 	SetGraphMode(320, 96, 32);
+	SetAlwaysRunFlag(TRUE);
 	if (DxLib_Init() == -1) {
 		return -1;
 	}
@@ -19,6 +20,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	int Mode = 0;
 	int StartButtonLength = 0;
+	int Minute = 0;
+	int Second = 0;
 	int BGHandle, PartHandle, StartSoundHandle, PauseSoundHandle, MouseX, MouseY;
 
 	BGHandle = LoadGraph("bg_ja.png");
