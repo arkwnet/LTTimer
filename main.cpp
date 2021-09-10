@@ -22,7 +22,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	int StartButtonLength = 0;
 	int Minute = 0;
 	int Second = 0;
+	int Frame = 0;
 	int BGHandle, PartHandle, StartSoundHandle, PauseSoundHandle, MouseX, MouseY;
+	int Count = 0;
 
 	BGHandle = LoadGraph("bg_ja.png");
 	PartHandle = LoadGraph("part_ja.png");
@@ -36,6 +38,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			if (MouseX >= 260 && MouseX <= 293 && MouseY >= 49 && MouseY <= 81) {
 				if (StartButtonLength == 1) {
 					Mode++;
+					Count = 15;
 					if (Mode == 1) {
 						PlaySoundMem(StartSoundHandle, DX_PLAYTYPE_BACK);
 					}
@@ -58,6 +61,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			StartButtonLength = 0;
 		}
 
+		Count++;
+		if (Count >= 60) {
+			Count = 0;
+		}
+
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
 		DrawGraph(0, 0, BGHandle, FALSE);
 		if (Mode == 0) {
 			DrawRectGraph(18, 26, 0, 0, 64, 16, PartHandle, TRUE);
@@ -66,6 +75,22 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		}
 		DrawRectGraph(152, 53, 0, 32, 14, 14, PartHandle, TRUE);
 		DrawRectGraph(233, 53, 14, 32, 14, 14, PartHandle, TRUE);
+
+		if (Mode == 2) {
+			int Opacity;
+			if (Count == 0) {
+				Opacity = 128;
+			} else if (Count > 0 && Count < 30) {
+				Opacity = 255;
+			} else if (Count == 30) {
+				Opacity = 128;
+			} else if (Count > 30 && Count < 60) {
+				Opacity = 0;
+			}
+			SetDrawBlendMode(DX_BLENDMODE_ALPHA, Opacity);
+		} else {
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
+		}
 		DrawRectGraph(96, 24, 64, 0, 26, 44, PartHandle, TRUE);
 		DrawRectGraph(124, 24, 64, 0, 26, 44, PartHandle, TRUE);
 		DrawRectGraph(177, 24, 64, 0, 26, 44, PartHandle, TRUE);
