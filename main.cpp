@@ -64,6 +64,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		} else if (Mode == 1 || Mode == 2) {
 			DrawRectGraph(18, 50, 0, 16, 64, 16, PartHandle, TRUE);
 		}
+		DrawRectGraph(152, 53, 0, 32, 14, 14, PartHandle, TRUE);
+		DrawRectGraph(233, 53, 14, 32, 14, 14, PartHandle, TRUE);
+		DrawRectGraph(96, 24, 64, 0, 26, 44, PartHandle, TRUE);
+		DrawRectGraph(124, 24, 64, 0, 26, 44, PartHandle, TRUE);
+		DrawRectGraph(177, 24, 64, 0, 26, 44, PartHandle, TRUE);
+		DrawRectGraph(205, 24, 64, 0, 26, 44, PartHandle, TRUE);
 		ScreenFlip();
 	}
 	DeleteGraph(BGHandle);
