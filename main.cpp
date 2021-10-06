@@ -6,6 +6,13 @@ Licensed under the MIT License
 
 #include "DxLib.h"
 
+typedef struct {
+	int x1;
+	int x2;
+	int y1;
+	int y2;
+} Button;
+
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 	ChangeWindowMode(TRUE);
 	SetMainWindowText("LT Timer");
@@ -26,6 +33,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	int BGHandle, PartHandle, StartSoundHandle, PauseSoundHandle, MouseX, MouseY;
 	int Count = 0;
 
+	Button StartButton = {260, 293, 49, 81};
+
 	BGHandle = LoadGraph("bg_ja.png");
 	PartHandle = LoadGraph("part_ja.png");
 	StartSoundHandle = LoadSoundMem("start.wav");
@@ -35,7 +44,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		if ((GetMouseInput() & MOUSE_INPUT_LEFT) != 0) {
 			GetMousePoint(&MouseX, &MouseY);
 			StartButtonLength++;
-			if (MouseX >= 260 && MouseX <= 293 && MouseY >= 49 && MouseY <= 81) {
+			if (MouseX >= StartButton.x1 && MouseX <= StartButton.x2 && MouseY >= StartButton.y1 && MouseY <= StartButton.y2) {
 				if (StartButtonLength == 1) {
 					Mode++;
 					Count = 15;
