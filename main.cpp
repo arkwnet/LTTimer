@@ -1,6 +1,6 @@
 /*
 LT Timer
-Copyright (c) 2021 Sora Arakawa
+Copyright (c) 2021,2022 Sora Arakawa
 Licensed under the MIT License
 */
 
@@ -107,19 +107,21 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 					}
 				}
 			}
-			if (MouseX >= UpButton.x1 && MouseX <= UpButton.x2 && MouseY >= UpButton.y1 && MouseY <= UpButton.y2) {
-				if (StartButtonLength == 1) {
-					PlaySoundMem(PauseSoundHandle, DX_PLAYTYPE_BACK);
-					if (Minute < 99) {
-						Minute++;
+			if (Mode >= 0 && Mode <= 3) {
+				if (MouseX >= UpButton.x1 && MouseX <= UpButton.x2 && MouseY >= UpButton.y1 && MouseY <= UpButton.y2) {
+					if (StartButtonLength == 1) {
+						PlaySoundMem(PauseSoundHandle, DX_PLAYTYPE_BACK);
+						if (Minute < 99) {
+							Minute++;
+						}
 					}
 				}
-			}
-			if (MouseX >= DownButton.x1 && MouseX <= DownButton.x2 && MouseY >= DownButton.y1 && MouseY <= DownButton.y2) {
-				if (StartButtonLength == 1) {
-					PlaySoundMem(PauseSoundHandle, DX_PLAYTYPE_BACK);
-					if (Minute > 0) {
-						Minute--;
+				if (MouseX >= DownButton.x1 && MouseX <= DownButton.x2 && MouseY >= DownButton.y1 && MouseY <= DownButton.y2) {
+					if (StartButtonLength == 1) {
+						PlaySoundMem(PauseSoundHandle, DX_PLAYTYPE_BACK);
+						if (Minute > 0) {
+							Minute--;
+						}
 					}
 				}
 			}

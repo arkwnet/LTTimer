@@ -1,3 +1,4 @@
-.vs/LTTimer/v16/.suo
+.vs
+Debug
+Log.txt
 Release/Log.txt
-Debug/Log.txt
