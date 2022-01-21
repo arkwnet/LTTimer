@@ -1,4 +1,13 @@
 .vs
 Debug
 Log.txt
+Release/LTTimer.tlog
 Release/Log.txt
+Release/LTTimer.exe.recipe
+Release/LTTimer.iobj
+Release/LTTimer.log
+Release/LTTimer.pdb
+Release/LTTimer.ipdb
+Release/LTTimer.vcxproj.FileListAbsolute.txt
+Release/main.obj
+Release/vc142.pdb
