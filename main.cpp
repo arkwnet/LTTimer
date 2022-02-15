@@ -1,5 +1,5 @@
-/*
-LT Timer
+﻿/*
+Lightning Talk Timer
 Copyright (c) 2021,2022 Sora Arakawa
 Licensed under the MIT License
 */
@@ -36,7 +36,7 @@ class Fps {
 
 		void Draw() {
 			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
-			DrawFormatString(10, 10, GetColor(255, 255, 255), "%.1f fps", mFps);
+			DrawFormatString(10, 10, GetColor(255, 255, 255), L"%.1f fps", mFps);
 		}
 
 		void Wait() {
@@ -60,8 +60,9 @@ typedef struct {
 } Button;
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
+	SetUseCharCodeFormat(DX_CHARCODEFORMAT_UTF8) ;
 	ChangeWindowMode(TRUE);
-	SetMainWindowText("LT Timer");
+	SetMainWindowText(L"LTタイマー");
 	SetWindowSize(320, 96);
 	SetGraphMode(320, 96, 32);
 	SetAlwaysRunFlag(TRUE);
@@ -86,11 +87,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	Button DownButton = {286, 313, 30, 52};
 	Fps fps;
 
-	BGHandle = LoadGraph("bg_ja.png");
-	PartHandle = LoadGraph("part_ja.png");
-	StartSoundHandle = LoadSoundMem("start.wav");
-	PauseSoundHandle = LoadSoundMem("pause.wav");
-	EndSoundHandle = LoadSoundMem("end.wav");
+	BGHandle = LoadGraph(L"bg_ja.png");
+	PartHandle = LoadGraph(L"part_ja.png");
+	StartSoundHandle = LoadSoundMem(L"start.wav");
+	PauseSoundHandle = LoadSoundMem(L"pause.wav");
+	EndSoundHandle = LoadSoundMem(L"end.wav");
 
 	while (ScreenFlip() == 0 && ProcessMessage() == 0 && ClearDrawScreen() == 0) {
 		fps.Update();
