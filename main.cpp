@@ -5,6 +5,7 @@ Licensed under the MIT License
 */
 
 #include "DxLib.h"
+#include "Windows.h"
 
 class Fps {
 	int mStartTime;
@@ -72,6 +73,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	SetDrawScreen(DX_SCREEN_BACK);
 	SetWindowPos(GetMainWindowHandle(), HWND_TOPMOST, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE);
 
+	bool ShowFPS = false;
+	bool ShowCurrentDirectory = false;
+
 	int Mode = 0;
 	int StartButtonLength = 0;
 	int Minute = 0;
@@ -81,6 +85,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	int Frame = 0;
 	int BGHandle, PartHandle, StartSoundHandle, PauseSoundHandle, EndSoundHandle, MouseX, MouseY;
 	int Count = 0;
+
+	TCHAR CurrentDirectory[255];
+	GetCurrentDirectory(255, CurrentDirectory);
 
 	Button StartButton = {260, 293, 49, 81};
 	Button UpButton = {286, 313, 5, 27};
@@ -211,7 +218,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		DrawRectGraph(124, 24, 64 + ((Minute % 10) * 32), 0, 26, 44, PartHandle, TRUE);
 		DrawRectGraph(177, 24, 64 + (((Second - (Second % 10)) / 10) * 32), 0, 26, 44, PartHandle, TRUE);
 		DrawRectGraph(205, 24, 64 + ((Second % 10) * 32), 0, 26, 44, PartHandle, TRUE);
-		//fps.Draw();
+		if (ShowFPS == true) {
+			fps.Draw();
+		}
+		if (ShowCurrentDirectory == true) {
+			DrawString(10, 10, CurrentDirectory, GetColor(255, 255, 255));
+		}
 		ScreenFlip();
 		fps.Wait();
 	}
