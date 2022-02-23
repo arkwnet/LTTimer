@@ -85,6 +85,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	int Frame = 0;
 	int BGHandle, PartHandle, StartSoundHandle, PauseSoundHandle, EndSoundHandle, MouseX, MouseY;
 	int Count = 0;
+	bool IsCountDown = true;
 
 	TCHAR CurrentDirectory[255];
 	GetCurrentDirectory(255, CurrentDirectory);
@@ -142,6 +143,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 					if (Mode == 1) {
 						PlaySoundMem(StartSoundHandle, DX_PLAYTYPE_BACK);
 						SetMinute = Minute;
+						if (Minute == 0) {
+							IsCountDown = false;
+						} else {
+							IsCountDown = true;
+						}
 					}
 					if (Mode == 2) {
 						PlaySoundMem(PauseSoundHandle, DX_PLAYTYPE_BACK);
@@ -171,16 +177,27 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			TimerCount++;
 			if (TimerCount >= fps.Get()) {
 				TimerCount = 0;
-				Second--;
-				if (Second < 0) {
-					Second = 59;
-					Minute--;
-				}
-				if (Minute < 0) {
-					Minute = 0;
-					Second = 0;
-					Count = fps.Get() / 4;
-					Mode = 4;
+				if (IsCountDown == true) {
+					Second--;
+					if (Second < 0) {
+						Second = 59;
+						Minute--;
+					}
+					if (Minute < 0) {
+						Minute = 0;
+						Second = 0;
+						Count = fps.Get() / 4;
+						Mode = 4;
+					}
+				} else {
+					Second++;
+					if (Second >= 60) {
+						Second = 0;
+						Minute++;
+					}
+					if (Minute > 99) {
+						Minute = 0;
+					}
 				}
 			}
 		}
