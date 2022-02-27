@@ -60,6 +60,22 @@ typedef struct {
 	int y2;
 } Button;
 
+int ChangeMinute(int Minute, bool Mode) {
+	switch (Mode) {
+		case true:
+			if (Minute < 99) {
+				Minute++;
+			}
+			break;
+		case false:
+			if (Minute > 0) {
+				Minute--;
+			}
+			break;
+	}
+	return Minute;
+}
+
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 	SetUseCharCodeFormat(DX_CHARCODEFORMAT_UTF8) ;
 	ChangeWindowMode(TRUE);
@@ -120,17 +136,21 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				if (MouseX >= UpButton.x1 && MouseX <= UpButton.x2 && MouseY >= UpButton.y1 && MouseY <= UpButton.y2) {
 					if (StartButtonLength == 1) {
 						PlaySoundMem(PauseSoundHandle, DX_PLAYTYPE_BACK);
-						if (Minute < 99) {
-							Minute++;
-						}
+						Minute = ChangeMinute(Minute, true);
+					}
+					if (StartButtonLength >= 20 && StartButtonLength % 4 == 0) {
+						PlaySoundMem(PauseSoundHandle, DX_PLAYTYPE_BACK);
+						Minute = ChangeMinute(Minute, true);
 					}
 				}
 				if (MouseX >= DownButton.x1 && MouseX <= DownButton.x2 && MouseY >= DownButton.y1 && MouseY <= DownButton.y2) {
 					if (StartButtonLength == 1) {
 						PlaySoundMem(PauseSoundHandle, DX_PLAYTYPE_BACK);
-						if (Minute > 0) {
-							Minute--;
-						}
+						Minute = ChangeMinute(Minute, false);
+					}
+					if (StartButtonLength >= 20 && StartButtonLength % 4 == 0) {
+						PlaySoundMem(PauseSoundHandle, DX_PLAYTYPE_BACK);
+						Minute = ChangeMinute(Minute, false);
 					}
 				}
 			}
