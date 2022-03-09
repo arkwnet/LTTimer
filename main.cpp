@@ -111,11 +111,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	Button DownButton = {286, 313, 30, 52};
 	Fps fps;
 
-	BGHandle = LoadGraph(L"bg_ja.png");
-	PartHandle = LoadGraph(L"part_ja.png");
-	StartSoundHandle = LoadSoundMem(L"start.wav");
-	PauseSoundHandle = LoadSoundMem(L"pause.wav");
-	EndSoundHandle = LoadSoundMem(L"end.wav");
+	BGHandle = LoadGraph(L"Assets\\bg_ja.png");
+	PartHandle = LoadGraph(L"Assets\\part_ja.png");
+	StartSoundHandle = LoadSoundMem(L"Assets\\start.wav");
+	PauseSoundHandle = LoadSoundMem(L"Assets\\pause.wav");
+	EndSoundHandle = LoadSoundMem(L"Assets\\end.wav");
 
 	while (ScreenFlip() == 0 && ProcessMessage() == 0 && ClearDrawScreen() == 0) {
 		fps.Update();
