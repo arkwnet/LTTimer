@@ -60,6 +60,14 @@ typedef struct {
 	int y2;
 } Button;
 
+typedef struct {
+	int Major;
+	int Minor;
+	int Year;
+	int Month;
+	int Day;
+} Version;
+
 int ChangeMinute(int Minute, bool Mode) {
 	switch (Mode) {
 		case true:
@@ -111,6 +119,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	Button DownButton = {286, 313, 30, 52};
 	Fps fps;
 
+	Version Version = {1, 0, 2022, 4, 2};
+
 	BGHandle = LoadGraph(L"Assets\\bg_ja.png");
 	PartHandle = LoadGraph(L"Assets\\part_ja.png");
 	StartSoundHandle = LoadSoundMem(L"Assets\\start.wav");
@@ -126,9 +136,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				if (StartButtonLength == (fps.Get() / 2)) {
 					if (Mode == 0 || Mode == 2) {
 						PlaySoundMem(StartSoundHandle, DX_PLAYTYPE_BACK);
-						Minute = 0;
-						Second = 0;
-						Mode = 0;
+						if (Minute == 0 && Second == 0) {
+							Minute = Version.Major;
+							Second = Version.Minor;
+							Mode = 100;
+						} else {
+							Minute = 0;
+							Second = 0;
+							Mode = 0;
+						}
 					}
 				}
 			}
@@ -158,7 +174,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			GetMousePoint(&MouseX, &MouseY);
 			if (MouseX >= StartButton.x1 && MouseX <= StartButton.x2 && MouseY >= StartButton.y1 && MouseY <= StartButton.y2) {
 				if (StartButtonLength >= 1 && StartButtonLength < fps.Get() / 2) {
-					Mode++;
+					if (Mode <= 6) {
+						Mode++;
+					}
 					Count = 10;
 					if (Mode == 1) {
 						PlaySoundMem(StartSoundHandle, DX_PLAYTYPE_BACK);
@@ -180,6 +198,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 						StopSoundMem(EndSoundHandle);
 						PlaySoundMem(PauseSoundHandle, DX_PLAYTYPE_BACK);
 						Minute = SetMinute;
+						Second = 0;
+						Mode = 0;
+					}
+					if (Mode == 100) {
+						PlaySoundMem(StartSoundHandle, DX_PLAYTYPE_BACK);
+						Minute = 0;
 						Second = 0;
 						Mode = 0;
 					}
