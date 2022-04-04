@@ -119,7 +119,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	Button DownButton = {286, 313, 30, 52};
 	Fps fps;
 
-	Version Version = {1, 0, 2022, 4, 2};
+	Version Version = {1, 0, 2022, 4, 3};
 
 	BGHandle = LoadGraph(L"Assets\\bg_ja.png");
 	PartHandle = LoadGraph(L"Assets\\part_ja.png");
@@ -178,34 +178,49 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 						Mode++;
 					}
 					Count = 10;
-					if (Mode == 1) {
-						PlaySoundMem(StartSoundHandle, DX_PLAYTYPE_BACK);
-						SetMinute = Minute;
-						if (Minute == 0) {
-							IsCountDown = false;
-						} else {
-							IsCountDown = true;
-						}
-					}
-					if (Mode == 2) {
-						PlaySoundMem(PauseSoundHandle, DX_PLAYTYPE_BACK);
-					}
-					if (Mode == 3) {
-						PlaySoundMem(PauseSoundHandle, DX_PLAYTYPE_BACK);
-						Mode = 1;
-					}
-					if (Mode == 5) {
-						StopSoundMem(EndSoundHandle);
-						PlaySoundMem(PauseSoundHandle, DX_PLAYTYPE_BACK);
-						Minute = SetMinute;
-						Second = 0;
-						Mode = 0;
-					}
-					if (Mode == 100) {
-						PlaySoundMem(StartSoundHandle, DX_PLAYTYPE_BACK);
-						Minute = 0;
-						Second = 0;
-						Mode = 0;
+					switch (Mode) {
+						case 1:
+							PlaySoundMem(StartSoundHandle, DX_PLAYTYPE_BACK);
+							SetMinute = Minute;
+							if (Minute == 0) {
+								IsCountDown = false;
+							}
+							else {
+								IsCountDown = true;
+							}
+							break;
+						case 2:
+							PlaySoundMem(PauseSoundHandle, DX_PLAYTYPE_BACK);
+							break;
+						case 3:
+							PlaySoundMem(PauseSoundHandle, DX_PLAYTYPE_BACK);
+							Mode = 1;
+							break;
+						case 5:
+							StopSoundMem(EndSoundHandle);
+							PlaySoundMem(PauseSoundHandle, DX_PLAYTYPE_BACK);
+							Minute = SetMinute;
+							Second = 0;
+							Mode = 0;
+							break;
+						case 100:
+							PlaySoundMem(PauseSoundHandle, DX_PLAYTYPE_BACK);
+							Minute = (Version.Year - (Version.Year % 100)) / 100;
+							Second = Version.Year % 100;
+							Mode = 101;
+							break;
+						case 101:
+							PlaySoundMem(PauseSoundHandle, DX_PLAYTYPE_BACK);
+							Minute = Version.Month;
+							Second = Version.Day;
+							Mode = 102;
+							break;
+						case 102:
+							PlaySoundMem(StartSoundHandle, DX_PLAYTYPE_BACK);
+							Minute = 0;
+							Second = 0;
+							Mode = 0;
+							break;
 					}
 				}
 			}
