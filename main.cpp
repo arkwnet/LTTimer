@@ -119,7 +119,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	Button DownButton = {286, 313, 30, 52};
 	Fps fps;
 
-	Version Version = {1, 0, 2022, 4, 3};
+	Version Version = {1, 0, 2022, 4, 5};
 
 	BGHandle = LoadGraph(L"Assets\\bg_ja.png");
 	PartHandle = LoadGraph(L"Assets\\part_ja.png");
@@ -184,8 +184,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 							SetMinute = Minute;
 							if (Minute == 0) {
 								IsCountDown = false;
-							}
-							else {
+							} else {
 								IsCountDown = true;
 							}
 							break;
@@ -269,13 +268,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
 		DrawGraph(0, 0, BGHandle, FALSE);
+
 		if (Mode == 0) {
 			DrawRectGraph(18, 26, 0, 0, 64, 16, PartHandle, TRUE);
 		} else if (Mode == 1 || Mode == 2 || Mode == 4) {
 			DrawRectGraph(18, 50, 0, 16, 64, 16, PartHandle, TRUE);
 		}
-		DrawRectGraph(152, 53, 0, 32, 14, 14, PartHandle, TRUE);
-		DrawRectGraph(233, 53, 14, 32, 14, 14, PartHandle, TRUE);
+		
+		if (Mode <= 6) {
+			DrawRectGraph(152, 53, 0, 32, 14, 14, PartHandle, TRUE);
+			DrawRectGraph(233, 53, 14, 32, 14, 14, PartHandle, TRUE);
+		}
 
 		if (Mode == 2 || Mode == 4) {
 			int Opacity = 0;
@@ -290,16 +293,20 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		} else {
 			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
 		}
+
 		DrawRectGraph(96, 24, 64 + (((Minute - (Minute % 10)) / 10) * 32), 0, 26, 44, PartHandle, TRUE);
 		DrawRectGraph(124, 24, 64 + ((Minute % 10) * 32), 0, 26, 44, PartHandle, TRUE);
 		DrawRectGraph(177, 24, 64 + (((Second - (Second % 10)) / 10) * 32), 0, 26, 44, PartHandle, TRUE);
 		DrawRectGraph(205, 24, 64 + ((Second % 10) * 32), 0, 26, 44, PartHandle, TRUE);
+
 		if (ShowFPS == true) {
 			fps.Draw();
 		}
+
 		if (ShowCurrentDirectory == true) {
 			DrawString(10, 10, CurrentDirectory, GetColor(255, 255, 255));
 		}
+
 		ScreenFlip();
 		fps.Wait();
 	}
