@@ -6,6 +6,8 @@ Licensed under the MIT License
 
 #include "DxLib.h"
 #include "Windows.h"
+#include "struct.h"
+#include "timer.h"
 
 class Fps {
 	int mStartTime;
@@ -53,37 +55,6 @@ class Fps {
 		}
 };
 
-typedef struct {
-	int x1;
-	int x2;
-	int y1;
-	int y2;
-} Button;
-
-typedef struct {
-	int Major;
-	int Minor;
-	int Year;
-	int Month;
-	int Day;
-} Version;
-
-int ChangeMinute(int Minute, bool Mode) {
-	switch (Mode) {
-		case true:
-			if (Minute < 99) {
-				Minute++;
-			}
-			break;
-		case false:
-			if (Minute > 0) {
-				Minute--;
-			}
-			break;
-	}
-	return Minute;
-}
-
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 	SetUseCharCodeFormat(DX_CHARCODEFORMAT_UTF8) ;
 	ChangeWindowMode(TRUE);
@@ -119,7 +90,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	Button DownButton = {286, 313, 30, 52};
 	Fps fps;
 
-	Version Version = {1, 0, 2022, 4, 5};
+	Version Version = {1, 0, 2022, 4, 7};
 
 	BGHandle = LoadGraph(L"Assets\\bg_ja.png");
 	PartHandle = LoadGraph(L"Assets\\part_ja.png");
