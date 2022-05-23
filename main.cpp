@@ -90,7 +90,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	Button DownButton = {286, 313, 30, 52};
 	Fps fps;
 
-	Version Version = {1, 0, 2022, 4, 7};
+	Version Version = {1, 0, 2022, 5, 24};
 
 	BGHandle = LoadGraph(L"Assets\\bg_ja.png");
 	PartHandle = LoadGraph(L"Assets\\part_ja.png");
