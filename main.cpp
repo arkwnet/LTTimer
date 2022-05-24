@@ -58,7 +58,8 @@ class Fps {
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 	SetUseCharCodeFormat(DX_CHARCODEFORMAT_UTF8) ;
 	ChangeWindowMode(TRUE);
-	SetMainWindowText(L"LTタイマー");
+	SetWindowIconID(334);
+	SetMainWindowText(L"Lightning Talk Timer");
 	SetWindowSize(320, 96);
 	SetGraphMode(320, 96, 32);
 	SetAlwaysRunFlag(TRUE);
