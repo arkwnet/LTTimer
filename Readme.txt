@@ -2,7 +2,7 @@
 ライトニングトークタイマー
 
 Version 1.0 (2022-05-24)
-Copyright (c) 2022 Sora Arakawa
+Copyright (c) 2021,2022 Sora Arakawa
 Licensed under the MIT License
 ----------
 
